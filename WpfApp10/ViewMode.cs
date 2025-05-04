@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using WpfApp10.Commads;
 using WpfApp10.Observable;
+using static WpfApp10.CustomItemsControl;
 
 namespace WpfApp10
 {
     public class ViewMode : ObservableObject
     {
-        public ObservableCollection<Person> ObservableCollection { get; set; }
+        public ObservableCollection<PersonInfo> ObservableCollection { get; set; }
         private Person _selectedItem;
         public Person SelectedItem 
         { 

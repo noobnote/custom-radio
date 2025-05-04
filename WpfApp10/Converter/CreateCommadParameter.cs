@@ -16,10 +16,10 @@ namespace WpfApp10.Converter
             CommandParameter defaultCommandParameter = default(CommandParameter);
             if (!(values != null && values.Length >= 2)) return defaultCommandParameter;
             if (!(values[0] !=null && values[1] != null)) return defaultCommandParameter;
-            if (!(values[0] is ToggleButton && values[1] is Person))return defaultCommandParameter;
+            if (!(values[0] is ToggleButton && values[1] is PersonInfo))return defaultCommandParameter;
 
 
-            return new CommandParameter() { ToggleButton = (ToggleButton)values[0], Person = (Person)values[1] };
+            return new CommandParameter() { ToggleButton = (ToggleButton)values[0], PersonInfo = (PersonInfo)values[1] };
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

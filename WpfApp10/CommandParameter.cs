@@ -10,6 +10,6 @@ namespace WpfApp10
     public class CommandParameter
     {
         public ToggleButton ToggleButton { get; set; }
-        public Person Person { get; set; }
+        public PersonInfo PersonInfo { get; set; }
     }
 }

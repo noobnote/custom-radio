@@ -11,10 +11,11 @@
                 Margin="5">
             <UniformGrid Rows="1" Columns="2">
                 <TextBlock>
-                    <Run Text="{Binding Name}"/>
+                    <Run Text="{Binding Person.Name}"/>
                 </TextBlock>
 
                 <CheckBox x:Name="CheckBox"
+                          IsChecked="{Binding IsEnabled}"
                           Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl},Path=(ItemsControl.DataContext).(local:ViewMode.ToggleCommand)}">
                     <CheckBox.CommandParameter>
                         <MultiBinding Converter="{StaticResource CreateCommadParameter}">
@@ -25,24 +26,6 @@
                 </CheckBox>
             </UniformGrid>
         </Border>
-
-        <DataTemplate.Triggers>
-
-            <!--下面这个写法初衷是：
-            当itemsControl已选择项与当前子项不一致时，自动将IsChecked变为false
-            但是会失败
-            -->
-
-            <!--<DataTrigger Value="false">
-                <DataTrigger.Binding>
-                    <MultiBinding Converter="{StaticResource ReferenceComparator}">
-                        <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="(ItemsControl.DataContext).(local:ViewMode.SelectedItem)"/>
-                        <Binding/>
-                    </MultiBinding>
-                </DataTrigger.Binding>
-                <Setter TargetName="CheckBox" Property="IsChecked" Value="false"/>
-            </DataTrigger>-->
-        </DataTemplate.Triggers>
-
+        
     </DataTemplate>
 </ResourceDictionary>
