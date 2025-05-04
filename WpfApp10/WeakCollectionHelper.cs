@@ -50,7 +50,7 @@ namespace WpfApp10
             return false;
         }
 
-        /// <summary>关闭集合中除了item外的所有对象
+        /// <summary>对队列中的所有子项进行统一操作
         /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -58,26 +58,16 @@ namespace WpfApp10
         /// <param name="item"></param>
         /// <param name="CloseAction"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public static void CloseOtherObject<T>(this List<WeakReference<T>> sourceWeakList, T item, Action<T> CloseAction) where T : class
+        public static void ForEachApply<T>(this List<WeakReference<T>> sourceWeakList, Action<T> CloseAction) where T : class
         {
-            if (sourceWeakList == null || item == null || CloseAction == null) throw new ArgumentNullException();
-
-
-            var colseList = new List<T>();
-
-
+            if (sourceWeakList == null || CloseAction == null) throw new ArgumentNullException();
             foreach (var weakReference in sourceWeakList)
             {
                 T toggle;
-                if (!weakReference.TryGetTarget(out toggle) || !object.ReferenceEquals(toggle, item))
+                if (weakReference.TryGetTarget(out toggle))
                 {
-                    colseList.Add(toggle);
+                    CloseAction(toggle);
                 }
-            }
-
-            foreach (var cell in colseList)
-            {
-                CloseAction.Invoke(cell);
             }
         }
 
@@ -86,9 +76,9 @@ namespace WpfApp10
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sourceWeakList"></param>
-        public static void RemoveNullReferences<T>(this List<WeakReference<T>> sourceWeakList) where T :class
+        public static void RemoveNullReferences<T>(this List<WeakReference<T>> sourceWeakList) where T : class
         {
-            if (sourceWeakList == null ) throw new ArgumentNullException();
+            if (sourceWeakList == null) throw new ArgumentNullException();
 
             var releasedList = new List<WeakReference<T>>();
             foreach (var item in sourceWeakList)

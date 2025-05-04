@@ -30,7 +30,7 @@
 
             <!--下面这个写法初衷是：
             当itemsControl已选择项与当前子项不一致时，自动将IsChecked变为false
-            但是会失败
+            但是会失败，表现为必须点两下才会被勾选
             -->
 
             <!--<DataTrigger Value="false">
