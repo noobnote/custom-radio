@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WpfApp10"
+                    xmlns:converter="clr-namespace:WpfApp10.Converter">
+
+    <converter:CreateCommadParameter x:Key="CreateCommadParameter"/>
+    <converter:ReferenceComparator x:Key="ReferenceComparator"/>
+
+    <DataTemplate x:Key="ItemTemplate">
+        <Border Background="LightBlue"
+                Margin="5">
+            <UniformGrid Rows="1" Columns="2">
+                <TextBlock>
+                    <Run Text="{Binding Name}"/>
+                </TextBlock>
+
+                <CheckBox x:Name="CheckBox"
+                          Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl},Path=(ItemsControl.DataContext).(local:ViewMode.ToggleCommand)}">
+                    <CheckBox.CommandParameter>
+                        <MultiBinding Converter="{StaticResource CreateCommadParameter}">
+                            <Binding ElementName="CheckBox"/>
+                            <Binding/>
+                        </MultiBinding>
+                    </CheckBox.CommandParameter>
+                </CheckBox>
+            </UniformGrid>
+        </Border>
+
+        <DataTemplate.Triggers>
+
+            <!--下面这个写法初衷是：
+            当itemsControl已选择项与当前子项不一致时，自动将IsChecked变为false
+            但是会失败
+            -->
+
+            <!--<DataTrigger Value="false">
+                <DataTrigger.Binding>
+                    <MultiBinding Converter="{StaticResource ReferenceComparator}">
+                        <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="(ItemsControl.DataContext).(local:ViewMode.SelectedItem)"/>
+                        <Binding/>
+                    </MultiBinding>
+                </DataTrigger.Binding>
+                <Setter TargetName="CheckBox" Property="IsChecked" Value="false"/>
+            </DataTrigger>-->
+        </DataTemplate.Triggers>
+
+    </DataTemplate>
+</ResourceDictionary>
