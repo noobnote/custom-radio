@@ -142,7 +142,10 @@ namespace WpfApp10
                 param.PersonInfo.IsEnabled = true;
                 foreach (var cell in this.ViewMode.ObservableCollection)
                 {
-                    cell.IsEnabled = false;
+                    if (!object.ReferenceEquals(cell, param.PersonInfo))
+                    {
+                        cell.IsEnabled = false;
+                    }
                 }
             }
             if (!isChecked && this.ViewMode.ObservableCollection.Contains(param.PersonInfo))
